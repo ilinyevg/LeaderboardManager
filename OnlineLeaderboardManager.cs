@@ -61,7 +61,7 @@ namespace APGFramework.Leaderboard
             // Set the ContentLength property of the WebRequest.
             //request.ContentLength = byteArray.Length;
             // Get the request stream.
-            dataStream = HttpWebRequestExtensions.GetRequestStream((HttpWebRequest)request);// request.GetRequestStream();
+            dataStream = HttpWebRequestExtensions.GetRequestStream((HttpWebRequest)request);
             // Write the data to the request stream.
             dataStream.Write(byteArray, 0, byteArray.Length);
             // Close the Stream object.
@@ -106,11 +106,11 @@ namespace APGFramework.Leaderboard
             {
                 result = parseToHighscoreTable(ev.Result);
             };
-            string str = "http://ilinyevg.nichost.ru/Leaderboard/requestscores.php";
+            string str = "[URL to server web service]/Leaderboard/requestscores.php";
             UriBuilder uri = new UriBuilder(str);
             uri.Query = "ModeID=1&Format=TOP10";
 
-            client.DownloadStringAsync(uri.Uri);//.DownloadStringAsync
+            client.DownloadStringAsync(uri.Uri);
 
             return responseString;
         }
@@ -118,7 +118,7 @@ namespace APGFramework.Leaderboard
         public void sendOnlineRequest(string modeid, string format)
         {
             string postString = "ModeID=" + modeid + "&Format=" + format;
-            webPost("http://ilinyevg.nichost.ru/Leaderboard/requestscores.php", postString);
+            webPost("[URL to server web service]/Leaderboard/requestscores.php", postString);
         }
 
         private highscoreTable parseToHighscoreTable(string tableString)
@@ -163,7 +163,7 @@ namespace APGFramework.Leaderboard
             //data = x.ComputeHash(data);
             string ret = "";
             ret = MD5Core.GetHashString(data).ToLower();
-            //ret = "caf516972d9eb45114b9d13d9fa1b884";
+            //ret = "";
             //for (int i = 0; i < data.Length; i++) ret += data[i].ToString("x2").ToLower();
             return ret;
         }
@@ -172,7 +172,7 @@ namespace APGFramework.Leaderboard
         {
             //name = "evgen";
             //score = 7700;
-            string highscoreString = name + info + score + "galina24182421";
+            string highscoreString = name + info + score + "code word";
             string postString = "ModeID=" + modeid
                             + "&Name=" + name
                             + "&Info=" + info
@@ -182,7 +182,7 @@ namespace APGFramework.Leaderboard
                             + "&TotalPlayTime=" + totalPlaySecs.ToString()
                             + "&Hash=" + hashString(highscoreString);
             string response = null;
-            response = webPost("http://ilinyevg.nichost.ru/Leaderboard/newscoreGR.php", postString);
+            response = webPost("[URL to web service]/Leaderboard/newscoreGR.php", postString);
             return response;
         }
 
@@ -191,7 +191,7 @@ namespace APGFramework.Leaderboard
             //name = "evgen";
             //score = 7700;
 
-            string highscoreString = "Robot" + info + "0" + "galina24182421";
+            string highscoreString = "Robot" + info + "0" + "code word";
             string postString = "ModeID=" + modeid
                             + "&Name=Robot"
                             + "&Info=" + info
@@ -201,7 +201,7 @@ namespace APGFramework.Leaderboard
                             + "&TotalPlayTime=" + totalPlaySecs.ToString()
                             + "&Hash=" + hashString(highscoreString);
             string response = null;
-            response = webPost("http://ilinyevg.nichost.ru/Leaderboard/newscoreGR.php", postString);
+            response = webPost("[URL to web service]/Leaderboard/newscoreGR.php", postString);
             return response;
         }
 
